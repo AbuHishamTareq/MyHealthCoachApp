@@ -1,5 +1,5 @@
 import { View, Text, Image, StyleSheet, useWindowDimensions, TextInput, TouchableOpacity, ScrollView, Keyboard } from 'react-native';
-import React, { createRef, useRef, useState } from 'react';
+import React, { createRef, useRef, useState, useContext } from 'react';
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import LottieView from 'lottie-react-native';
@@ -7,10 +7,12 @@ import { AntDesign } from '@expo/vector-icons';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import * as Device from 'expo-device';
-import { BASE_URL } from '@env'
-import axios from 'axios';
+import { login, loadUser } from '../../services/AuthService';
+import AuthContext from '../../contexts/AuthContext';
+import Toast from 'react-native-root-toast';
 
-export default function Login() {
+export default function Login({ navigation }: any) {
+  const { setUser }: any = useContext(AuthContext);
   const animation = useRef(null);
   const {height: SCREEN_HEIGHT, width: SCREEN_WIDTH} = useWindowDimensions();
   const [showPassword, setShowPassword] = useState(true);
@@ -18,7 +20,7 @@ export default function Login() {
   const [userPassword, setUserPassword] = useState('');
   const [disableButton, setDisableButton] = useState(true);
 
-  const passwordInputRef = createRef() as any
+  const passwordInputRef = createRef() as any;
 
   const toggolePassword = () => {
       setShowPassword(!showPassword);
@@ -30,20 +32,28 @@ export default function Login() {
       } else {
         setDisableButton(false);
         try {
-          await axios.post(`${BASE_URL}/MyHealthCoachApp/api/login`, {
-            userUid: userUid,
-            userPassword: userPassword,
+          await login({
+            userUid,
+            userPassword,
             deviceName: Device.modelName
-          }, {
-            headers: {
-              Accept: 'application/json'
-            }
           });
-        } catch (e) {
-          console.log(e.response.data);
+
+          const user = await loadUser();
+          setUser(user);
+        } catch (e:any) {
+          let toast = Toast.show(e.response.data.message, {
+            duration: Toast.durations.LONG,
+            position: Toast.positions.BOTTOM,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0,
+            backgroundColor: 'darkred'
+          });
         }
       }
   }
+
   return (
     <LinearGradient
         style={ styles.background }
@@ -119,7 +129,7 @@ export default function Login() {
                   }
               </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={() => {}} style={{ marginBottom: 20, alignItems: 'flex-end' }}>
+          <TouchableOpacity onPress={() => {navigation.navigate('Forget Password')}} style={{ marginBottom: 20, alignItems: 'flex-end' }}>
               <Text style={{ color: '#1D8ED1', fontWeight: '700' }}>Forget Password ?</Text>
           </TouchableOpacity>
           <TouchableOpacity
