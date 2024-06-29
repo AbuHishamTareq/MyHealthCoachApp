@@ -10,15 +10,19 @@ import * as Device from 'expo-device';
 import { login, loadUser } from '../../services/AuthService';
 import AuthContext from '../../contexts/AuthContext';
 import Toast from 'react-native-root-toast';
+import { useNavigation } from '@react-navigation/native';
+import Loader from '../../components/Loader';
 
-export default function Login({ navigation }: any) {
+export default function Login() {
   const { setUser }: any = useContext(AuthContext);
+  const navigation:any = useNavigation();
   const animation = useRef(null);
   const {height: SCREEN_HEIGHT, width: SCREEN_WIDTH} = useWindowDimensions();
   const [showPassword, setShowPassword] = useState(true);
   const [userUid, setUserUid] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [disableButton, setDisableButton] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const passwordInputRef = createRef() as any;
 
@@ -31,6 +35,7 @@ export default function Login({ navigation }: any) {
         setDisableButton(true);
       } else {
         setDisableButton(false);
+        setLoading(true);
         try {
           await login({
             userUid,
@@ -41,6 +46,7 @@ export default function Login({ navigation }: any) {
           const user = await loadUser();
           setUser(user);
         } catch (e:any) {
+          setLoading(false);
           let toast = Toast.show(e.response.data.message, {
             duration: Toast.durations.LONG,
             position: Toast.positions.BOTTOM,
@@ -60,6 +66,8 @@ export default function Login({ navigation }: any) {
         locations={[0, 0.45, 1]}
         colors={["#BAECF9", "#FFF", "#BAECF9"]}
       >
+        <Loader loading={loading} />
+
         <Image
           style={styles.waves}
           resizeMode="cover"
@@ -90,8 +98,9 @@ export default function Login({ navigation }: any) {
                   return
                 }
 
-                setUserUid(userUid)}
-              }
+                setUserUid(userUid)
+                setDisableButton(false)
+              }}
               returnKeyType="next"
                 onSubmitEditing={() =>
                   passwordInputRef.current &&

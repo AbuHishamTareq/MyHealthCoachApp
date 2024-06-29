@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Modal, Image } from 'react-native';
 
-const Loader = (props) => {
+const Loader = (props: any) => {
   const { loading, ...attributes } = props;
 
   return (
@@ -14,7 +14,7 @@ const Loader = (props) => {
       }}>
       <View style={styles.modalBackground}>
         <View style={styles.activityIndicatorWrapper}>
-          <Image style={{width:'100%', flex:1, resizeMode:'contain',borderRadius: 10,}} source={require('../assets/images/loading.gif')} />
+          <Image style={{width:'100%', flex:1, resizeMode:'contain',borderRadius: 10,}} source={require('../assets/images/loadingwithoutbg.gif')} />
         </View>
       </View>
     </Modal>
