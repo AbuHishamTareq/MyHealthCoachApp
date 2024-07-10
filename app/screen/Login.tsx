@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, useWindowDimensions, TextInput, TouchableOpacity, ScrollView, Keyboard } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Keyboard } from 'react-native';
 import React, { createRef, useRef, useState, useContext } from 'react';
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -12,12 +12,12 @@ import AuthContext from '../../contexts/AuthContext';
 import Toast from 'react-native-root-toast';
 import { useNavigation } from '@react-navigation/native';
 import Loader from '../../components/Loader';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 export default function Login() {
   const { setUser }: any = useContext(AuthContext);
   const navigation:any = useNavigation();
   const animation = useRef(null);
-  const {height: SCREEN_HEIGHT, width: SCREEN_WIDTH} = useWindowDimensions();
   const [showPassword, setShowPassword] = useState(true);
   const [userUid, setUserUid] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -67,12 +67,6 @@ export default function Login() {
         colors={["#BAECF9", "#FFF", "#BAECF9"]}
       >
         <Loader loading={loading} />
-
-        <Image
-          style={styles.waves}
-          resizeMode="cover"
-          source={require("../../assets/images/waves.png")}
-        />
       
         <SafeAreaView style={ styles.container }>
         <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
@@ -81,15 +75,15 @@ export default function Login() {
                 autoPlay
                 loop
                 ref={animation}
-                style={{ width: SCREEN_WIDTH, height: SCREEN_HEIGHT / 2 }}
+                style={{ width: wp(100), height: hp(50) }}
                 source={require('../../assets/animation/login.json')}
             />
           </View>
-          <View style={{ flexDirection: 'row', borderBottomColor: '#000', borderBottomWidth: 1, paddingBottom: 8, marginBottom: 25 }}>
-            <AntDesign name="idcard" size={24} color="rgba(0,0,0, 0.3)" style={{ marginRight: 15 }} />
+          <View style={{ flexDirection: 'row', borderBottomColor: '#000', borderBottomWidth: 1, paddingBottom: hp(1), marginBottom: hp(2) }}>
+            <AntDesign name="idcard" size={24} color="rgba(0,0,0, 0.3)" style={{ marginRight: wp(4) }} />
             <TextInput
               placeholder='ID / Iqama No.'
-              style={{ flex: 1, paddingVertical: 0 }}
+              style={{ flex: 1}}
               keyboardType='number-pad'
               placeholderTextColor='rgba(0,0,0, 0.3)'
               onChangeText={(userUid) => {
@@ -109,11 +103,11 @@ export default function Login() {
                 blurOnSubmit={false}
             />
           </View>
-          <View style={{ flexDirection: 'row', borderBottomColor: '#000', borderBottomWidth: 1, paddingBottom: 8, marginBottom: 25 }}>
-              <SimpleLineIcons name="lock" size={24} color="rgba(0,0,0, 0.3)" style={{ marginRight: 15 }} />
+          <View style={{ flexDirection: 'row', borderBottomColor: '#000', borderBottomWidth: 1, paddingBottom: hp(1), marginBottom: hp(2.5) }}>
+              <SimpleLineIcons name="lock" size={24} color="rgba(0,0,0, 0.3)" style={{ marginRight: wp(4) }} />
               <TextInput 
                 placeholder='Enter your password'
-                style={{ flex: 1, paddingVertical: 0 }}
+                style={{ flex: 1 }}
                 onChangeText={(userPassword) => {
                   if(!userPassword) {
                     setDisableButton(true)
@@ -134,11 +128,11 @@ export default function Login() {
               />
               <TouchableOpacity onPress={toggolePassword}>
                   {
-                      showPassword ? <Feather name="eye" size={24} color="rgba(0,0,0, 0.3)" /> : <Feather name="eye-off" size={24} color="rgba(0,0,0, 0.3)" />
+                      showPassword ? <Feather name="eye" size={hp(3.5)} color="rgba(0,0,0, 0.3)" /> : <Feather name="eye-off" size={hp(3.5)} color="rgba(0,0,0, 0.3)" />
                   }
               </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={() => {navigation.navigate('Forget Password')}} style={{ marginBottom: 20, alignItems: 'flex-end' }}>
+          <TouchableOpacity onPress={() => {navigation.navigate('Forget Password')}} style={{ marginBottom: hp(3), alignItems: 'flex-end' }}>
               <Text style={{ color: '#1D8ED1', fontWeight: '700' }}>Forget Password ?</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -158,54 +152,36 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'center',
-      paddingHorizontal: 25
-    },
-    
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
+      paddingHorizontal: wp(5)
     },
 
     background: {
-      height: '100%'
-    },
-  
-    waves: {
-      top: -355,
-      left: 170,
-      width: 547,
-      height: 1489,
-      opacity: 0.2,
-      position: "absolute"
+      height: hp(120)
     },
   
     disable: {
       backgroundColor: 'lightgrey',
-      padding: 8,
-      borderRadius: 30,
-      marginBottom: 10,
-      marginTop: 5
+      padding: hp(1.2),
+      borderRadius: wp(5)
     },
   
     enable: {
       backgroundColor: '#1C8DD0',
-      padding: 8,
-      borderRadius: 30,
-      marginBottom: 10,
-      marginTop: 5
+      padding: hp(1.2),
+      borderRadius: wp(5),
     },
   
     disableText: {
       textAlign: 'center',
       fontWeight: '700',
-      fontSize: 16,
+      fontSize: wp(4.5),
       color: 'grey'
     },
   
     enableText: {
       textAlign: 'center',
       fontWeight: '700',
-      fontSize: 16,
+      fontSize: wp(4.5),
       color: '#FFF'
     }
 })

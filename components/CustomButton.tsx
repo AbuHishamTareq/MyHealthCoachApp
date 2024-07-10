@@ -1,5 +1,6 @@
 import { StyleSheet, useWindowDimensions, TouchableWithoutFeedback } from 'react-native'
 import Animated, { SharedValue, interpolateColor, useAnimatedStyle, withSpring, withTiming } from 'react-native-reanimated';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 type Props = {
     handlePress: () => void;
@@ -73,7 +74,7 @@ const CustomButton = ({handlePress, buttonVal}: Props) => {
        <Animated.View style={[styles.container, animatedColor, buttonAnimationStyle]}>
         <Animated.Text style={ [styles.textButton, textAnimatedStyle] }>JOIN US</Animated.Text>
         <Animated.Image 
-            style={[arrowAnimatedStyle, {width: 35, height: 38}]}
+            style={[arrowAnimatedStyle, {width: wp(10), height: hp(5)}]}
             source={require('../assets/images/ArrowIcon.png')} />
        </Animated.View>
     </TouchableWithoutFeedback>
@@ -87,17 +88,17 @@ const styles = StyleSheet.create({
         position: 'absolute',
         zIndex: 1,
         bottom: 100,
-        width: 120,
-        height: 120,
+        width: wp(30),
+        height: hp(30),
         backgroundColor: '#FFFFFF',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 100,
+        borderRadius: wp(30) / 2,
     },
 
     textButton: {
         color: 'black',
-        fontSize: 20,
+        fontSize: hp(3),
         position: 'absolute',
         fontWeight: 'bold'
     }

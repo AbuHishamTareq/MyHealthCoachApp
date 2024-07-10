@@ -1,8 +1,9 @@
 import { Canvas, Circle, Group, Mask, SkImage, makeImageFromView, Image } from "@shopify/react-native-skia";
 import React, { useRef, useState } from "react";
-import { PixelRatio, StyleSheet, View, useWindowDimensions, Text } from "react-native";
+import { PixelRatio, StyleSheet, View, Text } from "react-native";
 import { useSharedValue, withTiming } from "react-native-reanimated";
 import { useNavigation } from "@react-navigation/native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 
 import data from "../../data/data";
@@ -16,7 +17,6 @@ const OnBoard = () => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const pd = PixelRatio.get();
-    const {height: SCREEN_HEIGHT, width: SCREEN_WIDTH} = useWindowDimensions()
     const [active, setActive] = useState(false)
 
     const buttonVal = useSharedValue(0)
@@ -43,8 +43,8 @@ const OnBoard = () => {
         setOverlay(snapshot)
         await wait(80)
         setCurrentIndex(prev => prev + 1)
-        mask.value = withTiming(SCREEN_HEIGHT, {duration: 500})
-        buttonVal.value = withTiming(buttonVal.value + SCREEN_HEIGHT)
+        mask.value = withTiming(hp(100), {duration: 500})
+        buttonVal.value = withTiming(buttonVal.value + hp(100))
         await wait(500)
 
         setOverlay(null)
@@ -68,8 +68,8 @@ const OnBoard = () => {
               mode="luminance"
               mask= {
                   <Group>
-                  <Circle cx={SCREEN_WIDTH / 2} cy={SCREEN_HEIGHT - 130} r={SCREEN_HEIGHT} color='white' />
-                  <Circle cx={SCREEN_WIDTH / 2} cy={SCREEN_HEIGHT - 130} r={mask} color='black' />
+                  <Circle cx={wp(50)} cy={hp(100) - 130} r={hp(100)} color='white' />
+                  <Circle cx={wp(50)} cy={hp(100) - 130} r={mask} color='black' />
                   </Group>
               }
               >

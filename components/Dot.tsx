@@ -1,6 +1,7 @@
 import { StyleSheet, useWindowDimensions } from 'react-native'
 import React from 'react'
 import Animated, { Extrapolation, SharedValue, interpolate, interpolateColor, useAnimatedStyle } from 'react-native-reanimated';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 type Props = {
     index: number;
@@ -61,10 +62,10 @@ export default Dot
 
 const styles = StyleSheet.create({
     dot: {
-        height: 5,
-        width: 5,
-        marginHorizontal: 5,
-        borderRadius: 5,
-        top: -13
+        height: hp(0.6),
+        width: wp(0.6),
+        marginHorizontal: wp(0.6),
+        borderRadius: wp(0.6),
+        top: hp(-2)
     }
 })

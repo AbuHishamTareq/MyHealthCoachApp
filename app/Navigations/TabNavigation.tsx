@@ -1,16 +1,27 @@
-import { View, Text, Platform } from 'react-native'
+import { View, Text, Platform, Button, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
 import Home from '../screen/Home';
 import Reports from '../screen/Reports';
 import Records from '../screen/Records';
 import Chat from '../screen/Chat';
 import Profile from '../screen/Profile';
+import { createStackNavigator } from '@react-navigation/stack';
+import Rbs from '../screen/Rbs';
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import RbsDetails from '../screen/RbsDetails';
+import Weight from '../screen/Weight';
+import WeightDetails from '../screen/WeightDetails';
+import Bp from '../screen/Bp';
+import BpDetails from '../screen/BpDetails';
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 const screenOptions = {
     headerShown: false,
     tabBarShowLabel: false,
@@ -25,19 +36,19 @@ const screenOptions = {
     }
 }
 
-export default function TabNavigation() {
+const RecordsTab = () => {
     return (
-        <Tab.Navigator screenOptions={screenOptions}>
+        <Tab.Navigator initialRouteName='Home' screenOptions={screenOptions}>
             <Tab.Screen
-                name="Home"
-                component={Home}
+                name="Records"
+                component={Records}
                 options={{
                     title: '',
                     tabBarIcon: ({ focused }) => {
                         return (
                             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                <FontAwesome5 name="home" size={28} color={ focused ? '#1C8DD0' : '#CCC'} />
-                                <Text style={{ fontSize: 14, color: focused ? '#1C8DD0' : '#CCC' }}>Home</Text>
+                                <Entypo name="slideshare" size={28} color={ focused ? '#1C8DD0' : '#CCC'} />
+                                <Text style={{ fontSize: 14, color: focused ? '#1C8DD0' : '#CCC' }}>Records</Text>
                             </View>
                         );}
                     }}
@@ -57,8 +68,8 @@ export default function TabNavigation() {
                     }}
             />
             <Tab.Screen
-                name="Records"
-                component={Records}
+                name="Home"
+                component={Home}
                 options={{
                     title: '',
                     tabBarIcon: ({ focused }: { focused: boolean }) => {
@@ -79,7 +90,9 @@ export default function TabNavigation() {
                                     },
                                     shadowOpacity: 0.25,
                                     shadowRadius: 3.5,
-                                    elevation: 5
+                                    elevation: 5,
+                                    borderWidth: 3,
+                                    borderColor: '#fff'
                                 }}
                             >
                             <MaterialCommunityIcons name="heart-pulse" size={46} color="white" />
@@ -116,5 +129,101 @@ export default function TabNavigation() {
                     }}
             />
         </Tab.Navigator>
+    )
+}
+
+export default function TabNavigation() {
+    const navigation = useNavigation();
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name='RecordsTab' component={RecordsTab} options={{ headerShown: false }} />
+            <Stack.Screen name='Rbs' component={Rbs}
+                options={{ 
+                    presentation: 'modal', 
+                    headerBackImage: () =>  (<Ionicons name="close" size={24} color="white" />),
+                    title: 'Sugar Blood Level',
+                    headerStyle: { 
+                        backgroundColor: '#FF525C',
+                     },
+                    headerTitleStyle: {
+                        color: '#fff'
+                    },
+                    headerRight: () => (
+                        //@ts-ignore
+                        <TouchableOpacity onPress={() => { navigation.navigate('RbsDetails') }}>
+                            <MaterialCommunityIcons name="file-document-multiple-outline" size={30} color="white" style={{ marginRight: 10 }} />
+                        </TouchableOpacity>
+                      ),
+                }} />
+            <Stack.Screen name='RbsDetails' component={RbsDetails}  options={{ 
+                presentation: 'modal', 
+                headerBackImage: () =>  (<Ionicons name="close" size={24} color="white" />),
+                title: 'Sugar Blood Level',
+                headerStyle: { 
+                    backgroundColor: '#FF525C',
+                    },
+                headerTitleStyle: {
+                    color: '#fff'
+                },
+            }} />
+            <Stack.Screen name='Weight' component={Weight}
+                options={{ 
+                    presentation: 'modal', 
+                    headerBackImage: () =>  (<Ionicons name="close" size={24} color="black" />),
+                    title: 'Weight',
+                    headerStyle: { 
+                        backgroundColor: '#18e6d1',
+                     },
+                    headerTitleStyle: {
+                        color: '#000'
+                    },
+                    headerRight: () => (
+                        //@ts-ignore
+                        <TouchableOpacity onPress={() => { navigation.navigate('WeightDetails') }}>
+                            <MaterialCommunityIcons name="file-document-multiple-outline" size={30} color="black" style={{ marginRight: 10 }} />
+                        </TouchableOpacity>
+                      ),
+                }} />
+            <Stack.Screen name='WeightDetails' component={WeightDetails}  options={{ 
+                presentation: 'modal', 
+                headerBackImage: () =>  (<Ionicons name="close" size={24} color="#000" />),
+                title: 'Weight',
+                headerStyle: { 
+                    backgroundColor: '#18e6d1',
+                    },
+                headerTitleStyle: {
+                    color: '#000'
+                },
+            }} />
+            <Stack.Screen name='Bp' component={Bp}
+                options={{ 
+                    presentation: 'modal', 
+                    headerBackImage: () =>  (<Ionicons name="close" size={24} color="white" />),
+                    title: 'Blood Pressure',
+                    headerStyle: { 
+                        backgroundColor: '#9D80FF',
+                     },
+                    headerTitleStyle: {
+                        color: '#fff'
+                    },
+                    headerRight: () => (
+                        //@ts-ignore
+                        <TouchableOpacity onPress={() => { navigation.navigate('BpDetails') }}>
+                            <MaterialCommunityIcons name="file-document-multiple-outline" size={30} color="white" style={{ marginRight: 10 }} />
+                        </TouchableOpacity>
+                      ),
+                }} />
+            <Stack.Screen name='BpDetails' component={BpDetails}  options={{ 
+                presentation: 'modal', 
+                headerBackImage: () =>  (<Ionicons name="close" size={24} color="white" />),
+                title: 'Blood Pressure',
+                headerStyle: { 
+                    backgroundColor: '#9D80FF',
+                    },
+                headerTitleStyle: {
+                    color: '#fff'
+                },
+            }} />
+        </Stack.Navigator>
     )
 }

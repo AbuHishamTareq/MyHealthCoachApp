@@ -2,9 +2,10 @@ import axiosLib from 'axios';
 import { getToken } from '../services/TokenService';
 
 const axios = axiosLib.create({
-    baseURL: 'http://192.168.1.15:8000/api',
+    baseURL: 'http://192.168.1.9:8000/api',
     headers: {
-        Accept: 'application/json'
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data'
     }
 });
 

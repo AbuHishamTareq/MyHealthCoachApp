@@ -9,6 +9,7 @@ import { AppContainer } from './containers/AppContainer';
 import TabNavigation from './app/Navigations/TabNavigation';
 
 
+
 export default function App() {
   const [user, setUser] = useState();
   const [onboarded, setOnboarded] = useState();
@@ -18,7 +19,7 @@ export default function App() {
       const onboarded:any = await AsyncStorage.getItem('ONBOARD');
       setOnboarded(JSON.parse(onboarded));
     }
-
+     
     getStorage();
   }, []);
 
@@ -27,9 +28,7 @@ export default function App() {
       try {
         const user = await loadUser();
         setUser(user);
-      } catch(e) {
-        console.log('Failed to load user', e);
-      } 
+      } catch(e) {} 
     }
 
     runEffect();
@@ -38,7 +37,7 @@ export default function App() {
   return (
     <RootSiblingParent>
       <AuthContext.Provider value={{ user, setUser }}>
-        <NavigationContainer> 
+        <NavigationContainer>
           {user ? (
             <> 
               <TabNavigation />

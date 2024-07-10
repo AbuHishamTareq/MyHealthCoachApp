@@ -4,12 +4,11 @@ import { sendPasswordResetLink } from '../../services/AuthService';
 import AuthContext from '../../contexts/AuthContext';
 
 export default function ForgetPassword() {
-    const [email, setEmail] = useState('');
     const { user }:any = useContext(AuthContext);
 
     async function handleForgetPassword() {
         try {
-            await sendPasswordResetLink(user.id);
+            await sendPasswordResetLink(user.email);
         } catch(e) {
             console.log(e);
         }

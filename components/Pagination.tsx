@@ -3,6 +3,7 @@ import React from 'react'
 import { OnboardingData } from '../data/data';
 import { SharedValue } from 'react-native-reanimated';
 import Dot from './Dot';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 type Props = {
     data: OnboardingData[];
@@ -24,7 +25,7 @@ export default Pagination
 const styles = StyleSheet.create({
     paginationContainer: {
         position: 'absolute',
-        bottom: 70,
+        bottom: hp(9.5),
         flexDirection: 'row'
     }
 })
