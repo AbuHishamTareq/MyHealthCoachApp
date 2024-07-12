@@ -19,9 +19,12 @@ import Weight from '../screen/Weight';
 import WeightDetails from '../screen/WeightDetails';
 import Bp from '../screen/Bp';
 import BpDetails from '../screen/BpDetails';
+import Steps from '../screen/Steps';
+import { styles } from 'react-native-gifted-charts/src/Components/AnimatedThreeDBar/styles';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+
 const screenOptions = {
     headerShown: false,
     tabBarShowLabel: false,
@@ -35,6 +38,8 @@ const screenOptions = {
         background: '#fff'
     }
 }
+
+
 
 const RecordsTab = () => {
     return (
@@ -142,6 +147,7 @@ export default function TabNavigation() {
                     presentation: 'modal', 
                     headerBackImage: () =>  (<Ionicons name="close" size={24} color="white" />),
                     title: 'Sugar Blood Level',
+                    headerTitleAlign: 'center',
                     headerStyle: { 
                         backgroundColor: '#FF525C',
                      },
@@ -159,6 +165,7 @@ export default function TabNavigation() {
                 presentation: 'modal', 
                 headerBackImage: () =>  (<Ionicons name="close" size={24} color="white" />),
                 title: 'Sugar Blood Level',
+                headerTitleAlign: 'center',
                 headerStyle: { 
                     backgroundColor: '#FF525C',
                     },
@@ -171,6 +178,7 @@ export default function TabNavigation() {
                     presentation: 'modal', 
                     headerBackImage: () =>  (<Ionicons name="close" size={24} color="black" />),
                     title: 'Weight',
+                    headerTitleAlign: 'center',
                     headerStyle: { 
                         backgroundColor: '#18e6d1',
                      },
@@ -188,6 +196,7 @@ export default function TabNavigation() {
                 presentation: 'modal', 
                 headerBackImage: () =>  (<Ionicons name="close" size={24} color="#000" />),
                 title: 'Weight',
+                headerTitleAlign: 'center',
                 headerStyle: { 
                     backgroundColor: '#18e6d1',
                     },
@@ -200,6 +209,7 @@ export default function TabNavigation() {
                     presentation: 'modal', 
                     headerBackImage: () =>  (<Ionicons name="close" size={24} color="white" />),
                     title: 'Blood Pressure',
+                    headerTitleAlign: 'center',
                     headerStyle: { 
                         backgroundColor: '#9D80FF',
                      },
@@ -217,6 +227,7 @@ export default function TabNavigation() {
                 presentation: 'modal', 
                 headerBackImage: () =>  (<Ionicons name="close" size={24} color="white" />),
                 title: 'Blood Pressure',
+                headerTitleAlign: 'center',
                 headerStyle: { 
                     backgroundColor: '#9D80FF',
                     },
@@ -224,6 +235,27 @@ export default function TabNavigation() {
                     color: '#fff'
                 },
             }} />
+            <Stack.Screen name='Steps' component={Steps}
+                options={{
+                    headerTitleAlign: 'center',
+                    presentation: 'modal', 
+                    headerBackImage: () =>  (<Ionicons name="close" size={24} color="white" />),
+                    title: 'Steps',
+                    headerStyle: {
+                        backgroundColor: '#5379FE',
+                        elevation: 0,
+                        shadowOpacity: 0
+                     },
+                    headerTitleStyle: {
+                        color: '#fff'
+                    },
+                    headerRight: () => (
+                        //@ts-ignore
+                        <TouchableOpacity onPress={() => { navigation.navigate('BpDetails') }}>
+                            <MaterialCommunityIcons name="file-document-multiple-outline" size={30} color="white" style={{ marginRight: 10 }} />
+                        </TouchableOpacity>
+                      ),
+                }} />
         </Stack.Navigator>
     )
 }

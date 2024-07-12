@@ -7,6 +7,7 @@ import { RootSiblingParent } from 'react-native-root-siblings';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppContainer } from './containers/AppContainer';
 import TabNavigation from './app/Navigations/TabNavigation';
+import React from 'react';
 
 
 

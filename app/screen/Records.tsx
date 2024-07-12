@@ -45,6 +45,14 @@ export default function Records() {
 
   const data: ArrayLike<any> | null | undefined = [
     {
+      name: 'Steps Counter',
+      icon: require('../../assets/images/step-w.png'),
+      iconBackgroundColor: '#5379fe',
+      value: '--',
+      unit: 'steps',
+      link: 'Steps'
+    },
+    {
       name: 'RBS',
       icon: require('../../assets/images/blood-drop.png'),
       iconBackgroundColor: '#ff525c',
