@@ -11,15 +11,14 @@ export default function Steps({route}: any) {
     const [date, setDate] = useState(new Date());
   const layout = useWindowDimensions();
   const { bgColor } = route.params;
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
     { key: 'daily', title: 'Daily' },
     { key: 'weekly', title: 'Weekly' },
     { key: 'monthly', title: 'Monthly' },
   ]);
 
   const {steps, distance, calories} = useHealthData(date);
-
   const DailyRoute = () => (
     <View style={{ flex: 1, backgroundColor: bgColor , justifyContent: 'center', alignItems: 'center' }} >
         <View style={{ flexDirection: 'row' }}>
@@ -66,7 +65,6 @@ export default function Steps({route}: any) {
         <View style={{ flex: 1, flexDirection: 'row', backgroundColor: '#fff', height: 150, justifyContent: 'center', alignItems: 'center' }}>
             <Value image={ require('../../assets/images/distance.png') } backgroundColor={ bgColor } unit='M' value= {distance} />
             <Value image={ require('../../assets/images/kcal.png') } backgroundColor={ bgColor } unit='kCal' value= {calories} />
-            <Value image={ require('../../assets/images/clock.png') } backgroundColor={ bgColor } unit='Minutes' value= {0} />
         </View>
         <View style={{ backgroundColor: '#fff',  marginTop: 10 }}>
             <View style={{ margin: 15, padding: 10, height: 200, backgroundColor: '#ffdcde', borderRadius: 10, borderWidth: 1, borderColor: bgColor }}>

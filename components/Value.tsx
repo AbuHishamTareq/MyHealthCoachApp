@@ -13,7 +13,7 @@ export default function Value({ value, image, backgroundColor, unit }: ValueProp
   return (
     <View style={ styles.container }>
         <Image source={ image } style= {[{ backgroundColor: backgroundColor }, styles.icon]} resizeMode='center'/>
-        <Text style={ styles.valueText }>{ (value !== 0) ? '--' : value}</Text>
+        <Text style={ styles.valueText }>{ (value !== 0) ? (value/1000).toFixed(2) : '--'}</Text>
         <Text style={ styles.unitText }>{ unit }</Text>
     </View>
   )

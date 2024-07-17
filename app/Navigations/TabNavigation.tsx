@@ -21,6 +21,7 @@ import Bp from '../screen/Bp';
 import BpDetails from '../screen/BpDetails';
 import Steps from '../screen/Steps';
 import { styles } from 'react-native-gifted-charts/src/Components/AnimatedThreeDBar/styles';
+import ChatRoom from '../screen/ChatRoom';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -38,8 +39,6 @@ const screenOptions = {
         background: '#fff'
     }
 }
-
-
 
 const RecordsTab = () => {
     return (
@@ -256,6 +255,7 @@ export default function TabNavigation() {
                         </TouchableOpacity>
                       ),
                 }} />
+            <Stack.Screen name='ChatRoom' component={ChatRoom} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }

@@ -79,6 +79,11 @@ export async function getBpDetailsFromAPI(patientId: any) {
     return bpDetailsFromAPI;
 }
 
+export async function getChatData(patientId: any) {
+    const {data: chatDatainfo }: any = await axios.get('/getChatData', {params: {patientId}});
+    return chatDatainfo;
+}
+
 
 
 

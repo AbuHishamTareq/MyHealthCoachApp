@@ -90,11 +90,10 @@ export default function useHealthData(date: Date) {
     }
 
     //Request Permissions
-    
     await requestPermission([
       { accessType: 'read', recordType: 'Steps' },
       { accessType: 'read', recordType: 'Distance' },
-      { accessType: 'read', recordType: 'FloorsClimbed' }
+      { accessType: 'read', recordType: 'TotalCaloriesBurned' }
     ]);
 
     const timeRangeFilter: TimeRangeFilter = {
@@ -110,19 +109,13 @@ export default function useHealthData(date: Date) {
 
     // Distance
     const distance = await readRecords('Distance', { timeRangeFilter });
-    const totalDistance = distance.reduce(
-      (sum, cur) => sum + cur.distance.inMeters,
-      0
-    );
+    const totalDistance = distance.reduce((sum, cur) => sum + cur.distance.inMeters, 0);
     setDistance(totalDistance);
 
-    // Floors climbed
-    const floorsClimbed = await readRecords('FloorsClimbed', {
-      timeRangeFilter,
-    });
-    const totalFloors = floorsClimbed.reduce((sum, cur) => sum + cur.floors, 0);
-    setCalories(totalFloors);
-    // console.log(floorsClimbed);
+    // Total Burend Calories
+    const caloriesBurned = await readRecords('TotalCaloriesBurned', {timeRangeFilter});
+    const totalCalories = caloriesBurned.reduce((sum, cur) => sum + cur.energy.inKilocalories, 0);
+    setCalories(totalCalories);
   };
 
   useEffect(() => {

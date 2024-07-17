@@ -1,3 +1,4 @@
+import React from 'react';
 import { StyleSheet, useWindowDimensions, TouchableWithoutFeedback } from 'react-native'
 import Animated, { SharedValue, interpolateColor, useAnimatedStyle, withSpring, withTiming } from 'react-native-reanimated';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';

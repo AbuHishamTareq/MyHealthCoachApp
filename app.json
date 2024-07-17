@@ -20,18 +20,12 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.myhealthcoach",
-      "permissions": [
-        "android.permission.health.READ_STEPS",
-        "android.permission.health.READ_FLOORS_CLIMBED",
-        "android.permission.health.READ_DISTANCE"
-      ]
+      "package": "com.myhealthcoach"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "./androidManifestPlugin.js",
       "react-native-health",
       [
         "expo-build-properties",
